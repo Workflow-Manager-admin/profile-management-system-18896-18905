@@ -15,6 +15,21 @@
   box-shadow: 0 4px 32px rgba(33,33,52,0.08);
 }
 
+/* Separation between header and cards-row when cards-row is right after header */
+.cards-row-below-header {
+  margin-top: 0;
+  margin-bottom: 32px;
+  /* Cards row gets strong padding from the top for clear separation */
+  padding-top: 32px;
+}
+
+@media (max-width: 850px) {
+  .cards-row-below-header {
+    padding-top: 16px;
+    margin-bottom: 18px;
+  }
+}
+
 .header-text {
   display: flex;
   flex-direction: column;

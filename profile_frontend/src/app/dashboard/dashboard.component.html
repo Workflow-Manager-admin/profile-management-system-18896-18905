@@ -5,8 +5,10 @@
       <span class="subtitle">Manage and monitor profiles, devices, and their statuses</span>
     </div>
   </header>
-  <main class="dashboard-main">
-    <div class="cards-row">
+
+  <!-- Info cards row now directly below header, outside gradient area -->
+  <div class="dashboard-main">
+    <div class="cards-row cards-row-below-header">
       <div class="info-card" *ngFor="let card of infoCards">
         <span class="info-title">{{card.title}}</span>
         <div class="info-value-row">
@@ -15,6 +17,7 @@
         </div>
       </div>
     </div>
+
     <div class="top-actions-row">
       <div class="tab-row">
         <button class="tab-btn" 
@@ -84,5 +87,5 @@
         </tbody>
       </table>
     </section>
-  </main>
+  </div>
 </div>

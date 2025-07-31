@@ -1,0 +1,15 @@
+<nav class="sidebar" [class.sidebar-open]="open" [class.sidebar-closed]="!open">
+  <button class="sidebar-close-btn" *ngIf="open && isMobile"
+    type="button" aria-label="Close menu" (click)="onToggleSidebar()">
+    <span class="material-icons">close</span>
+  </button>
+  <div class="sidebar-nav">
+    <a *ngFor="let item of menuItems"
+       class="sidebar-item"
+       [class.sidebar-item-active]="activeSection === item.key"
+       (click)="selectSection(item.key)">
+      <span class="material-icons sidebar-icon">{{ item.icon }}</span>
+      <span class="sidebar-label">{{ item.label }}</span>
+    </a>
+  </div>
+</nav>

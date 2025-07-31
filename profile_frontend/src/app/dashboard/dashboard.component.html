@@ -1,13 +1,131 @@
-<div class="dashboard-bg">
-  <header class="dashboard-header">
-    <div class="header-text">
-      <h1>Profile Management</h1>
-      <span class="subtitle">Manage and monitor profiles, devices, and their statuses</span>
-    </div>
-  </header>
+<div class="dashboard-bg dashboard-has-sidebar">
+  <div class="sidebar-container">
+    <!-- Hamburger for mobile -->
+    <button class="sidebar-hamburger" *ngIf="!sidebarOpen" (click)="sidebarOpen = true" aria-label="Open menu">
+      <span class="material-icons">menu</span>
+    </button>
+    <app-sidebar
+      [open]="sidebarOpen"
+      [activeSection]="activeMenu"
+      [isMobile]="isMobile()"
+      (sectionSelected)="onSidebarMenu($event)"
+      (toggleSidebar)="sidebarOpen = !sidebarOpen"
+    ></app-sidebar>
+  
 
-  <!-- Info cards row now directly below header, outside gradient area -->
-  <div class="dashboard-main">
+  <section class="main-area">
+    <header class="dashboard-header">
+      <div class="header-logo-icx">
+        <span class="logo-icx">ICX</span>
+      </div>
+      <div class="header-text">
+        <h1>{{ activeMenu === 'profile' ? 'Profile Management'
+            : activeMenu === 'firmware' ? 'Firmware Management'
+            : activeMenu === 'device' ? 'Device Management'
+            : 'Dashboard' }}</h1>
+        <span class="subtitle">
+          {{ activeMenu === 'profile' ? 'Manage and monitor profiles, devices, and their statuses'
+          : activeMenu === 'firmware' ? 'Manage firmware versions and updates'
+          : activeMenu === 'device' ? 'Monitor and manage connected devices'
+          : '' }}
+        </span>
+      </div>
+    </header>
+
+    <!-- Info cards row directly below header; only show for Profile Management -->
+    <div *ngIf="activeMenu === 'profile'" class="dashboard-main">
+      <div class="cards-row cards-row-below-header">
+        <app-info-card
+          *ngFor="let card of infoCards"
+          [icon]="card.icon"
+          [value]="card.value"
+          [label]="card.title"
+          [badge]="card.badge">
+        </app-info-card>
+      </div>
+      <div class="top-actions-row">
+        <div class="tab-row">
+          <button class="tab-btn" 
+            *ngFor="let tab of filterTabs"
+            [class.tab-active]="tab.value === activeTab"
+            (click)="setTab(tab.value)">{{tab.label}}</button>
+        </div>
+        <div class="search-create-row">
+          <input class="search-bar" 
+              type="text" 
+              placeholder="Search profiles…" 
+              [value]="searchTerm" 
+              (input)="onSearchChange($event)" />
+          <button class="create-profile-btn" (click)="createProfile()">+ Create Profile</button>
+        </div>
+      </div>
+      <section class="table-wrapper">
+        <table class="data-table">
+          <thead>
+            <tr>
+              <th>Profile Name</th>
+              <th>Devices</th>
+              <th>Type</th>
+              <th>Status</th>
+              <th>Created Date</th>
+              <th>Actions</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let profile of filteredProfiles">
+              <td>{{profile.name}}</td>
+              <td>{{profile.devices}}</td>
+              <td>
+                <span 
+                  class="pill"
+                  [ngStyle]="{
+                    'background': profile.type === 'Schedule' ? '#e91e63' : '#212132',
+                    'color': profile.type === 'Schedule' ? '#fff' : '#fff'
+                  }"
+                >{{profile.type}}</span>
+              </td>
+              <td>
+                <span 
+                  class="pill"
+                  [ngStyle]="{
+                    'background': profile.status === 'Active' ? '#43d07f' : '#e6fbe7',
+                    'color': profile.status === 'Active' ? '#fff' : '#444'
+                  }"
+                >{{profile.status}}</span>
+              </td>
+              <td>{{profile.created}}</td>
+              <td>
+                <button class="action-btn edit" title="Edit" (click)="handleAction(profile,'edit')">
+                  <span class="material-icons">edit</span>
+                </button>
+                <button class="action-btn download" title="Download" (click)="handleAction(profile,'download')">
+                  <span class="material-icons">download</span>
+                </button>
+                <button class="action-btn delete" title="Delete" (click)="handleAction(profile,'delete')">
+                  <span class="material-icons">delete</span>
+                </button>
+              </td>
+            </tr>
+            <tr *ngIf="filteredProfiles.length === 0">
+              <td colspan="6" class="no-data">No profiles found.</td>
+            </tr>
+          </tbody>
+        </table>
+      </section>
+    </div>
+
+    <!-- Firmware Management Section -->
+    <div *ngIf="activeMenu === 'firmware'" class="dashboard-main" style="min-height:300px;">
+      <div class="section-title">Firmware Management (coming soon)</div>
+      <div style="color:#9ba7bb; font-size: 1.13rem; margin-top:28px;">View and manage firmware packages here.</div>
+    </div>
+
+    <!-- Device Management Section -->
+    <div *ngIf="activeMenu === 'device'" class="dashboard-main" style="min-height:300px;">
+      <div class="section-title">Device Management (coming soon)</div>
+      <div style="color:#9ba7bb; font-size: 1.13rem; margin-top:28px;">Monitor and control connected devices here.</div>
+    </div>
+  </section>
     <div class="cards-row cards-row-below-header">
       <app-info-card
         *ngFor="let card of infoCards"

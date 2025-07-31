@@ -2,6 +2,91 @@
   min-height: 100vh;
   background: #f5f7fa;
   font-family: 'Inter', 'Segoe UI', Arial, sans-serif;
+  display: flex;
+  flex-direction: row;
+}
+
+.dashboard-has-sidebar {
+  display: flex;
+  flex-direction: row;
+}
+
+.sidebar-container {
+  min-width: 235px;
+  max-width: 255px;
+  background: transparent;
+  position: relative;
+  z-index: 22;
+  padding: 32px 13px 18px 15px;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+}
+.sidebar-hamburger {
+  background: #f7faff;
+  color: #1a2542;
+  border: none;
+  outline: none;
+  border-radius: 22px;
+  box-shadow: 0 2px 16px rgba(33,33,52,0.10), 0 0.5px 4px rgba(33,33,52,0.02);
+  font-size: 2.2rem;
+  width: 54px;
+  height: 54px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 19px;
+  cursor: pointer;
+  transition: background 0.17s;
+}
+.sidebar-hamburger:hover {
+  background: #e2f2ff;
+}
+
+.main-area {
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+}
+
+.header-logo-icx {
+  display: flex;
+  align-items: flex-start;
+  margin-right: 26px;
+  height: 100%;
+}
+
+.logo-icx {
+  display: block;
+  font-size: 2.0rem;
+  font-weight: 700;
+  letter-spacing: 3.5px;
+  color: #fff;
+  background: linear-gradient(90deg, #1976d2 35%, #e91e63 84%);
+  padding: 6px 22px 6px 11px;
+  border-radius: 13px;
+  box-shadow: 0 2px 14px rgba(33,33,52,0.13);
+  text-shadow: 0 1.5px 4.5px #21214211;
+  margin-top: 20px;
+  margin-right: 18px;
+}
+
+.dashboard-header {
+  background: linear-gradient(90deg, #e91e63 10%, #1976d2 90%);
+  min-height: 160px;
+  display: flex;
+  align-items: center;
+  padding: 0 40px;
+  color: #fff;
+  border-radius: 0 0 18px 18px;
+  box-shadow: 0 4px 32px rgba(33,33,52,0.08);
+  /* ensure side-by-side logo + header-text */
+}
+
+.header-text {
+  display: flex;
+  flex-direction: column;
 }
 
 .dashboard-header {
@@ -255,6 +340,40 @@
   color: #aaa;
   font-size: 1.18rem;
   padding: 40px 0;
+}
+
+.section-title {
+  font-size: 1.34rem;
+  font-weight: 700;
+  color: #1976d2;
+  margin-top: 18px;
+  margin-bottom: 10px;
+}
+
+@media (max-width: 850px) {
+  .dashboard-bg,
+  .dashboard-has-sidebar {
+    flex-direction: column;
+  }
+  .sidebar-container {
+    padding: 9px 0 5px 0;
+    max-width: unset;
+    min-width: unset;
+  }
+  .sidebar-hamburger {
+    position: fixed;
+    top: 22px;
+    left: 16px;
+    z-index: 30;
+    margin-bottom: 0;
+    width: 52px;
+    height: 52px;
+  }
+  .main-area {
+    margin-left: 0;
+    margin-top: 0;
+    z-index: 1;
+  }
 }
 
 @media (max-width: 850px) {

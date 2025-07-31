@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { CommonModule, NgStyle } from '@angular/common';
-import { InfoCardComponent } from '../info-card/info-card.component'; // Import the new info card component
+import { InfoCardComponent } from '../info-card/info-card.component';
+import { SidebarComponent } from '../sidebar/sidebar.component';
 
 interface Profile {
   name: string;
@@ -15,9 +16,18 @@ interface Profile {
   templateUrl: './dashboard.component.html',
   styleUrl: './dashboard.component.css',
   standalone: true,
-  imports: [CommonModule, NgStyle, InfoCardComponent] // Add InfoCardComponent as import
+  imports: [CommonModule, NgStyle, InfoCardComponent, SidebarComponent]
 })
 export class DashboardComponent {
+  // Always open on desktop, closed on mobile - fallback: true (must NOT reference `window`)
+  sidebarOpen = true;
+  activeMenu: 'profile' | 'firmware' | 'device' = 'profile';
+
+  // For now, let isMobile always return false (SSR-safe, no window)
+  isMobile(): boolean {
+    return false;
+  }
+
   // PUBLIC_INTERFACE
   infoCards = [
     {
@@ -121,5 +131,12 @@ export class DashboardComponent {
   handleAction(profile: Profile, action: 'edit' | 'download' | 'delete') {
     // Lint-safe stub
     console.log(`Action: ${action} on profile: ${profile.name}`);
+  }
+
+  // PUBLIC_INTERFACE
+  onSidebarMenu(section: string) {
+    if (section === 'profile' || section === 'firmware' || section === 'device') {
+      this.activeMenu = section as typeof this.activeMenu;
+    }
   }
 }

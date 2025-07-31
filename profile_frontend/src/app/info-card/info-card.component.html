@@ -1,0 +1,10 @@
+<div class="info-card">
+  <span *ngIf="label" class="info-title">{{ label }}</span>
+  <div class="info-value-row">
+    <ng-container *ngIf="icon">
+      <span class="material-icons info-icon">{{ icon }}</span>
+    </ng-container>
+    <span class="info-value">{{ value }}</span>
+    <span *ngIf="badge" class="info-badge">{{ badge }}</span>
+  </div>
+</div>

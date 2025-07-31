@@ -1,0 +1,53 @@
+.info-card {
+  background: #fff;
+  box-shadow: 0 2px 16px rgba(33,33,52,0.08);
+  border-radius: 18px;
+  padding: 22px 28px 18px 28px;
+  display: flex;
+  flex-direction: column;
+  min-width: 170px;
+  min-height: 90px;
+}
+
+.info-title {
+  font-size: 1.03rem;
+  color: #a0a1b9;
+}
+
+.info-value-row {
+  display: flex;
+  align-items: center;
+  margin-top: 8px;
+  gap: 12px;
+}
+
+.info-value {
+  font-size: 2.05rem;
+  color: #212132;
+  font-weight: 600;
+  letter-spacing: -1.3px;
+}
+
+.info-badge {
+  background: #f5f7fa;
+  color: #e91e63;
+  font-size: 0.97rem;
+  padding: 2px 11px;
+  border-radius: 12px;
+  font-weight: 500;
+}
+
+.info-icon {
+  font-family: 'Material Icons', 'Segoe UI', 'Arial', sans-serif;
+  font-size: 2.0rem;
+  vertical-align: middle;
+  color: #1976d2;
+}
+
+/* Responsive for mobile cards */
+@media (max-width: 850px) {
+  .info-card {
+    min-width: unset; 
+    padding: 14px 18px;
+  }
+}

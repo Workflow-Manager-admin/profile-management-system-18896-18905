@@ -9,13 +9,13 @@
   <!-- Info cards row now directly below header, outside gradient area -->
   <div class="dashboard-main">
     <div class="cards-row cards-row-below-header">
-      <div class="info-card" *ngFor="let card of infoCards">
-        <span class="info-title">{{card.title}}</span>
-        <div class="info-value-row">
-          <span class="info-value">{{card.value}}</span>
-          <span class="info-badge">{{card.badge}}</span>
-        </div>
-      </div>
+      <app-info-card
+        *ngFor="let card of infoCards"
+        [icon]="card.icon"
+        [value]="card.value"
+        [label]="card.title"
+        [badge]="card.badge">
+      </app-info-card>
     </div>
 
     <div class="top-actions-row">

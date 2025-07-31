@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { CommonModule, NgStyle } from '@angular/common';
+import { InfoCardComponent } from '../info-card/info-card.component'; // Import the new info card component
 
 interface Profile {
   name: string;
@@ -14,14 +15,29 @@ interface Profile {
   templateUrl: './dashboard.component.html',
   styleUrl: './dashboard.component.css',
   standalone: true,
-  imports: [CommonModule, NgStyle]
+  imports: [CommonModule, NgStyle, InfoCardComponent] // Add InfoCardComponent as import
 })
 export class DashboardComponent {
   // PUBLIC_INTERFACE
   infoCards = [
-    { title: 'Total Profiles', value: 6, badge: '+2 from yesterday' },
-    { title: 'Created Today', value: 5, badge: 'Last created 2h ago' },
-    { title: 'Active Devices', value: 3, badge: '71.5% active rate' }
+    {
+      title: 'Total Profiles',
+      value: 6,
+      badge: '+2 from yesterday',
+      icon: 'assignment_ind'
+    },
+    {
+      title: 'Created Today',
+      value: 5,
+      badge: 'Last created 2h ago',
+      icon: 'calendar_today'
+    },
+    {
+      title: 'Active Devices',
+      value: 3,
+      badge: '71.5% active rate',
+      icon: 'devices'
+    }
   ];
 
   // PUBLIC_INTERFACE

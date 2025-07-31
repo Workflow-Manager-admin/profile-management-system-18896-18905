@@ -19,13 +19,19 @@ interface Profile {
   imports: [CommonModule, NgStyle, InfoCardComponent, SidebarComponent]
 })
 export class DashboardComponent {
-  // Always open on desktop, closed on mobile - fallback: true (must NOT reference `window`)
+  // Sidebar toggle state
   sidebarOpen = true;
   activeMenu: 'profile' | 'firmware' | 'device' = 'profile';
 
-  // For now, let isMobile always return false (SSR-safe, no window)
+  // SSR-safe: Always open on desktop, closed on mobile (stub).
+  // Could be enhanced with device detection library or by passing an @Input in future.
   isMobile(): boolean {
     return false;
+  }
+
+  // PUBLIC_INTERFACE
+  toggleSidebar(): void {
+    this.sidebarOpen = !this.sidebarOpen;
   }
 
   // PUBLIC_INTERFACE
@@ -137,6 +143,10 @@ export class DashboardComponent {
   onSidebarMenu(section: string) {
     if (section === 'profile' || section === 'firmware' || section === 'device') {
       this.activeMenu = section as typeof this.activeMenu;
+      // Collapse sidebar after navigating on mobile for better UX
+      if (this.isMobile()) {
+        this.sidebarOpen = false;
+      }
     }
   }
 }

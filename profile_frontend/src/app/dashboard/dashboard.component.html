@@ -1,20 +1,31 @@
 <div class="dashboard-bg dashboard-has-sidebar">
-  <div class="sidebar-container">
-    <!-- Hamburger for mobile -->
-    <button class="sidebar-hamburger" *ngIf="!sidebarOpen" (click)="sidebarOpen = true" aria-label="Open menu">
-      <span class="material-icons">menu</span>
-    </button>
+  <div class="sidebar-container" [style.display]="sidebarOpen ? 'flex' : 'none'">
     <app-sidebar
       [open]="sidebarOpen"
       [activeSection]="activeMenu"
       [isMobile]="isMobile()"
       (sectionSelected)="onSidebarMenu($event)"
-      (toggleSidebar)="sidebarOpen = !sidebarOpen"
+      (toggleSidebar)="toggleSidebar()"
     ></app-sidebar>
   </div>
   <section class="main-area">
-    <header class="dashboard-header">
-      <div class="header-logo-icx">
+    <header class="dashboard-header" style="position:relative">
+      <!-- Hamburger menu for sidebar toggle (always visible in header) -->
+      <button
+        class="sidebar-hamburger"
+        type="button"
+        aria-label="Toggle menu"
+        (click)="toggleSidebar()"
+        [attr.aria-pressed]="sidebarOpen"
+        [style.position]="'absolute'"
+        [style.left]="'18px'"
+        [style.top]="'22px'"
+        [style.display]="sidebarOpen && !isMobile() ? 'none' : 'flex'"
+        style="z-index:51"
+      >
+        <span class="material-icons">{{ sidebarOpen ? 'menu_open' : 'menu' }}</span>
+      </button>
+      <div class="header-logo-icx" [style.marginLeft]="sidebarOpen && !isMobile() ? '70px' : '70px'">
         <span class="logo-icx">ICX</span>
       </div>
       <div class="header-text">

@@ -382,3 +382,16 @@
   .info-card { min-width: unset; padding: 14px 18px; }
   .search-create-row { flex-direction: column; align-items: flex-start; gap: 8px;}
 }
+
+/* Overlay for sidebar (used in dashboard.component.html) */
+.sidebar-backdrop {
+  background: rgba(10,18,30,0.16);
+  position: fixed;
+  top: 0; left: 0;
+  width: 100vw;
+  height: 100vh;
+  z-index: 20;
+  transition: background .18s;
+  display: block;
+  pointer-events: all;
+}

@@ -1,5 +1,28 @@
 <div class="dashboard-bg dashboard-has-sidebar">
-  <div class="sidebar-container" [style.display]="sidebarOpen ? 'flex' : 'none'">
+  <!-- Overlay: appears only when sidebar is open to capture outside clicks (for visual dimming on mobile/desktop) -->
+  <div
+    *ngIf="sidebarOpen"
+    (click)="toggleSidebar()"
+    class="sidebar-backdrop"
+    tabindex="-1"
+    style="
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 100vh;
+      z-index: 20;
+      background: rgba(10, 18, 30, 0.16);
+      transition: background .2s;
+      display: block;
+    "
+  ></div>
+  <!-- Sidebar container: hidden by default, visible when open -->
+  <div
+    class="sidebar-container"
+    [style.display]="sidebarOpen ? 'flex' : 'none'"
+    style="z-index: 22; position: relative"
+  >
     <app-sidebar
       [open]="sidebarOpen"
       [activeSection]="activeMenu"

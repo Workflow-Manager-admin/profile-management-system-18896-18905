@@ -149,6 +149,68 @@
   justify-content: flex-start;
 }
 
+.stat-bar {
+  min-width: 248px;
+  max-width: 265px;
+  display: flex;
+  flex-direction: column;
+  gap: 19px;
+  justify-content: flex-start;
+  align-items: flex-end;
+}
+.stat-box {
+  background: #fff;
+  border-radius: 16px;
+  padding: 19px 25px 16px 25px;
+  min-width: 170px;
+  box-shadow: 0 2px 15px rgba(33,33,52,0.09);
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+}
+.stat-label {
+  color: #a0a1b9;
+  font-size: 1.01rem;
+  font-weight: 500;
+  margin-bottom: 6px;
+}
+.stat-value {
+  font-size: 2.1rem;
+  font-weight: 700;
+  letter-spacing: -1.3px;
+  color: #212132;
+}
+.stat-box:nth-child(2) .stat-value {
+  color: #e91e63;
+}
+.stat-box:nth-child(3) .stat-value {
+  color: #1976d2;
+}
+
+/* Responsive: stack stat bar below main cards on mobile */
+@media (max-width: 850px) {
+  .cards-row {
+    flex-direction: column;
+    gap: 14px;
+  }
+  .stat-bar {
+    flex-direction: row;
+    gap: 14px;
+    align-items: stretch;
+    min-width: unset;
+    max-width: unset;
+    margin-top: 10px;
+    margin-bottom: 8px;
+    justify-content: flex-start;
+  }
+  .stat-box {
+    align-items: flex-start;
+    min-width: 125px;
+    max-width: 186px;
+    padding: 9px 15px 9px 15px;
+  }
+}
+
 .info-card {
   background: #fff;
   box-shadow: 0 2px 16px rgba(33,33,52,0.08);

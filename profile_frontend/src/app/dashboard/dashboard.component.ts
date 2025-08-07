@@ -1,5 +1,5 @@
-import { Component, inject } from '@angular/core';
-import { CommonModule, NgStyle, isPlatformBrowser, PLATFORM_ID } from '@angular/common';
+import { Component, Inject, inject, PLATFORM_ID } from '@angular/core';
+import { CommonModule, NgStyle, isPlatformBrowser } from '@angular/common';
 import { InfoCardComponent } from '../info-card/info-card.component';
 import { SidebarComponent } from '../sidebar/sidebar.component';
 import { Renderer2 } from '@angular/core';
@@ -29,6 +29,9 @@ export class DashboardComponent {
 
   // Dismiss outside click listener handle
   private globalClickUnlisten: (() => void) | null = null;
+
+  // Store platformId for SSR checks
+  platformId: Object;
 
   // Cards displayed at the top
   infoCards = [
@@ -99,14 +102,18 @@ export class DashboardComponent {
     },
   ];
 
-  constructor() {}
+  constructor(
+    @Inject(PLATFORM_ID) platformId: Object
+  ) {
+    this.platformId = platformId;
+  }
 
   // SSR-safe device width detection
   isMobile(): boolean {
-    const platformId = inject(PLATFORM_ID);
-    if (isPlatformBrowser(platformId)) {
-      // Only access window if running in the browser
-      return typeof window !== 'undefined' && window.innerWidth <= 850;
+    if (isPlatformBrowser(this.platformId)) {
+      // window only available in browser
+      // eslint-disable-next-line no-undef
+      return typeof window !== 'undefined' && (window as any).innerWidth <= 850;
     }
     return false;
   }
@@ -136,17 +143,17 @@ export class DashboardComponent {
 
   // Handler for UI overlay (or hamburger) clicking
   private addOutsideClickListener(): void {
-    const platformId = inject(PLATFORM_ID);
+    if (!isPlatformBrowser(this.platformId)) return;
     const renderer = inject(Renderer2);
-    if (!isPlatformBrowser(platformId)) return;
     if (this.globalClickUnlisten) return;
-    this.globalClickUnlisten = renderer.listen('document', 'mousedown', (event: MouseEvent) => {
-      if (typeof document === 'object') {
-        const sidebarElem = document.querySelector('.sidebar-container');
-        const hamburgerElem = document.querySelector('.sidebar-hamburger');
-        if (sidebarElem && sidebarElem.contains(event.target as Node)) return;
-        if (hamburgerElem && hamburgerElem.contains(event.target as Node)) return;
-      }
+    // eslint-disable-next-line no-undef
+    const _document = typeof document !== 'undefined' ? document : undefined;
+    if (!_document) return;
+    this.globalClickUnlisten = renderer.listen(_document, 'mousedown', (event: MouseEvent) => {
+      const sidebarElem = _document.querySelector('.sidebar-container');
+      const hamburgerElem = _document.querySelector('.sidebar-hamburger');
+      if (sidebarElem && sidebarElem.contains(event.target as Node)) return;
+      if (hamburgerElem && hamburgerElem.contains(event.target as Node)) return;
       this.closeSidebar();
     });
   }

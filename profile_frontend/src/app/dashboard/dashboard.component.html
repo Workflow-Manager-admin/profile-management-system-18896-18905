@@ -79,14 +79,99 @@
 
     <!-- Profile Management Main Section -->
     <div *ngIf="activeMenu === 'profile'" class="dashboard-main">
-      <div class="cards-row cards-row-below-header">
-        <app-info-card
-          *ngFor="let card of infoCards"
-          [icon]="card.icon"
-          [value]="card.value"
-          [label]="card.title"
-          [badge]="card.badge"
-        ></app-info-card>
+      <div class="cards-row cards-row-below-header" style="justify-content:space-between;align-items:stretch;gap:32px;">
+        <!-- Left: existing app-info-card list -->
+        <div style="display:flex;gap:24px;flex:1 0 0;min-width:0;">
+          <app-info-card
+            *ngFor="let card of infoCards"
+            [icon]="card.icon"
+            [value]="card.value"
+            [label]="card.title"
+            [badge]="card.badge"
+          ></app-info-card>
+        </div>
+        <!-- Right: statistics side bar -->
+        <div class="stat-bar"
+          style="
+            min-width: 248px;
+            max-width: 265px;
+            display: flex;
+            flex-direction: column;
+            gap: 19px;
+            justify-content: flex-start;
+            align-items: flex-end;
+          "
+        >
+          <div class="stat-box" style="
+                background: #fff;
+                border-radius: 16px;
+                padding: 19px 25px 16px 25px;
+                min-width: 170px;
+                box-shadow: 0 2px 15px rgba(33,33,52,0.09);
+                display: flex;
+                flex-direction: column;
+                align-items: flex-end;
+              ">
+            <span class="stat-label" style="
+                    color: #a0a1b9;
+                    font-size: 1.01rem;
+                    font-weight: 500;
+                    margin-bottom: 6px;
+                  ">Total Profiles</span>
+            <span class="stat-value" style="
+                  color: #212132;
+                  font-size: 2.1rem;
+                  font-weight: 700;
+                  letter-spacing: -1.3px;
+                ">30</span>
+          </div>
+          <div class="stat-box" style="
+                background: #fff;
+                border-radius: 16px;
+                padding: 19px 25px 16px 25px;
+                min-width: 170px;
+                box-shadow: 0 2px 15px rgba(33,33,52,0.09);
+                display: flex;
+                flex-direction: column;
+                align-items: flex-end;
+              ">
+            <span class="stat-label" style="
+                    color: #a0a1b9;
+                    font-size: 1.01rem;
+                    font-weight: 500;
+                    margin-bottom: 6px;
+                  ">Zero Device Profiles</span>
+            <span class="stat-value" style="
+                  color: #e91e63;
+                  font-size: 2.1rem;
+                  font-weight: 700;
+                  letter-spacing: -1.3px;
+                ">15</span>
+          </div>
+          <div class="stat-box" style="
+                background: #fff;
+                border-radius: 16px;
+                padding: 19px 25px 16px 25px;
+                min-width: 170px;
+                box-shadow: 0 2px 15px rgba(33,33,52,0.09);
+                display: flex;
+                flex-direction: column;
+                align-items: flex-end;
+              ">
+            <span class="stat-label" style="
+                    color: #a0a1b9;
+                    font-size: 1.01rem;
+                    font-weight: 500;
+                    margin-bottom: 6px;
+                  ">Created Today</span>
+            <span class="stat-value" style="
+                  color: #1976d2;
+                  font-size: 2.1rem;
+                  font-weight: 700;
+                  letter-spacing: -1.3px;
+                ">0</span>
+          </div>
+        </div>
       </div>
       <div class="top-actions-row">
         <div class="tab-row">

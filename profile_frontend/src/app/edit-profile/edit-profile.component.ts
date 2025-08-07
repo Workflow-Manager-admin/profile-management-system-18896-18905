@@ -42,6 +42,7 @@ export class EditProfileComponent {
   // PUBLIC_INTERFACE
   saveProfile() {
     // Logic to be hooked up later, stub for now
-    alert('Profile saved! (stub)');
+    // Use SSR-safe notification stub
+    console.log('Profile saved! (stub)');
   }
 }
